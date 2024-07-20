@@ -1,0 +1,81 @@
+﻿@model SV20T1020183.DomainModels.Order
+@{
+    Layout = null;
+}
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <form id="formShipping" action="~/Order/EditProvince/@ViewBag.OrderID" method="post">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chuyển đổi địa chỉ giao hàng</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Dịa chỉ giao hàng:</label>
+                    <input type="text" class="form-control" name="DeliveryAddress" value="@Model.DeliveryAddress">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tỉnh/ thành:</label>
+                    <select class="form-control" name="DeliveryProvince">
+                        <option value="">--Chọn tỉnh/thành</option>
+                        @foreach (var item in SV20T1020183.BusinessLayers.CommonDataService.ListOfProvinces())
+                        {
+                            if (item.ProvinceName == Model.DeliveryProvince)
+                            {
+                                <option value="@item.ProvinceName" selected> @item.ProvinceName </option>
+                            }
+                            else
+                            {
+                                <option value="@item.ProvinceName"> @item.ProvinceName </option>
+                            }
+                        }
+                    </select>
+                    <div class="form-group">
+                        <span id="message" style="color:#f00"></span>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-floppy-o"></i> Cập nhật
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Bỏ qua
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#formShipping').submit(function (e) {
+            e.preventDefault();
+
+            var url = $(this).prop("action");
+            var method = $(this).prop("method");
+            var postData = $(this).serializeArray();
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: postData,
+                error: function () {
+                    alert("Your request is not valid");
+                },
+                success: function (data) {
+                    if (data !== "") {
+                        $("#message").html(data);
+                    }
+                    else {
+                        location.reload();
+                    }
+                }
+            });
+            return;
+        });
+    });
+</script>

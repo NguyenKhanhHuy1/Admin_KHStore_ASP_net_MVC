@@ -1,0 +1,88 @@
+﻿@model OrderSearchInput
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form id="formSearch" action="~/Order/Search" method="get" data-container="#searchResult">
+            <div class="row">
+                <div class="col-sm-2">
+                    <select class="form-control" name="@nameof(Model.Status)">
+                        <option value="0">-- Trạng thái --</option>
+                        <option value="1">Đơn hàng mới (chờ duyệt)</option>
+                        <option value="2">Đơn hàng đã duyệt (chờ chuyển hàng)</option>
+                        <option value="3">Đơn hàng đang được giao</option>
+                        <option value="4">Đơn hàng đã hoàn tất thành công</option>
+                        <option value="-1">Đơn hàng bị hủy</option>
+                        <option value="-2">Đơn hàng bị từ chối</option>
+                    </select>
+
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" name="DateRange" class="form-control daterange-picker" placeholder="" value="@Model.DateRange"/>
+
+                </div>
+                <div class="col-sm-8 input-group">
+
+                     <input type="hidden" name="@nameof(Model.PageSize)" value="@Model.PageSize" />
+
+                    <input name="@nameof(Model.SearchValue)" type="text" class="form-control" placeholder="Nhập tên mặt hàng cần tìm"
+                         value="@Model.SearchValue">
+
+                    <span class="input-group-btn" style="width:50px">
+                        <button type="submit" id="search-btn" class="btn btn-flat btn-info">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </form>
+        <!-- Hiển thị kết quả tìm kiếm-->
+        <div id="searchResult" >
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function (e) {
+            $("#formSearch").submit(function (e) {
+                e.preventDefault();
+                doSearch(this, 1);
+                return;
+            });
+            doSearch("#formSearch", @Model.Page);
+        });
+
+        function doSearch(formSearch, page) {
+            var action = $(formSearch).prop("action");
+            var method = $(formSearch).prop("method");
+            var container = $(formSearch).data("container");
+
+            var searchData = $(formSearch).serializeArray();
+            searchData.push({ "name": "Page", "value": page });
+
+            $.ajax({
+                url: action,
+                type: method,
+                data: searchData,
+                async: false,
+                error: function () {
+                    alert("Your request is not valid!");
+                },
+                success: function (data) {
+                    $(container).html(data);
+                }
+            });
+        }
+    </script>
+}

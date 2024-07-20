@@ -1,0 +1,39 @@
+﻿@model SV20T1020183.Web.Models.Person
+@{
+    ViewBag.Title = "Create Person ";
+}
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Test/Save" method="post">
+           
+            <div class="form-group">
+                <label>Person Name:</label>
+                <input type="text" class="form-control" name="Name" autofocus
+                       value="@Model.Name">
+            </div>
+            <div class="form-group">
+                <label>BirthDate:</label>
+                <input type="hidden" name="BirthDate" value="@Model.BirthDate" />
+                <input type="text" class="form-control" 
+                        name="BirthDateInput" 
+                        value="@Model.BirthDate.ToString("dd/MM/yyyy", new System.Globalization.CultureInfo("en-GB"))">
+            </div>
+            <div class="form-group">
+                <label>Salary:</label>
+                <input type="text" class="form-control" name="Salary" value="@Model.Salary">
+            </div>
+
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-floppy-o"> </i>
+                    Lưu dữ liệu
+                </button>
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>

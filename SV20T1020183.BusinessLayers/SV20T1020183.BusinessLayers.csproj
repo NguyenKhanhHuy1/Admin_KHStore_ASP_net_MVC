@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SV20T1020183.DataLayers\SV20T1020183.DataLayers.csproj" />
+    <ProjectReference Include="..\SV20T1020183.DomainModels\SV20T1020183.DomainModels.csproj" />
+  </ItemGroup>
+
+</Project>

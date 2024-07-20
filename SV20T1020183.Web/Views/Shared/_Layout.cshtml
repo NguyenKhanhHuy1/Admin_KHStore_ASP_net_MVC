@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>KH Shop - @ViewBag.Title</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/themes/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/themes/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/themes/bower_components/Ionicons/css/ionicons.min.css">
+
+    <!-- daterange picker-->
+    <link rel="stylesheet" href="~/themes/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- datepicker-->
+    <link rel="stylesheet" href="~/themes/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/themes/bower_components/select2/dist/css/select2.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/themes/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/themes/dist/css/skins/_all-skins.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    @* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> *@
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+
+        @{
+            await Html.RenderPartialAsync("_MainHeader");
+        }
+
+        @{
+            await Html.RenderPartialAsync("_MainSideBar");
+        }
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    @ViewBag.Title
+                </h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                @RenderBody()
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        @{
+            await Html.RenderPartialAsync("_MainFooter");
+        }
+        @{
+            await Html.RenderPartialAsync("_ControlSideBar");
+        }
+
+
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+    <script src="~/themes/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/themes/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="~/themes/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/themes/bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="~/themes/bower_components/moment/min/moment.min.js"></script>
+    <script src="~/themes/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="~/themes/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/themes/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/themes/dist/js/demo.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree();
+            $('.date-picker').datepicker({
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            })
+            $('.daterange-picker').daterangepicker({
+                locale: {
+                    format: "DD/MM/YYYY"
+                }
+            });
+        })
+    </script>
+    @RenderSection("scripts", false);
+</body>
+</html>

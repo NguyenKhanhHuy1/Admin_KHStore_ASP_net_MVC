@@ -1,0 +1,92 @@
+﻿@model SV20T1020183.DomainModels.Customer
+@{
+    
+}
+<div class="box box-primary">
+    <div class="box-body">
+        <form action="~/Customer/Save" method="post">
+            <input type="hidden" name="CustomerID" value="@Model.CustomerID" />
+            <div class="form-group">
+                <label >Tên khách hàng:</label>
+                @* <input type="text" class="form-control" name="CustomerName" autofocus
+                value="@Model.CustomerName"> *@
+                @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @autofocus="autofocus" })
+                @Html.ValidationMessage(nameof(Model.CustomerName), new { @style = "color:#f00" })
+            </div>
+            <div class="form-group">
+                <label>Tên giao dịch:</label>
+                @* <input type="text" class="form-control" name="ContactName" value="@Model.ContactName"> *@
+                @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control" })
+                @Html.ValidationMessage(nameof(Model.ContactName), new { @style ="color:#f00"})
+            </div>
+            <div class="form-group">
+                <label>Điện thoại:</label>
+                <input type="text" class="form-control" name="Phone" value="@Model.Phone">
+            </div>
+            <div class="form-group">
+                <label>Gmail:</label>
+                <input type="email" class="form-control" name="Email" value="@Model.Email">
+                @Html.ValidationMessage(nameof(Model.Email), new { @style = "color:#f00" })
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ:</label>
+                <input type="text" class="form-control" name="Address" value="@Model.Address">
+            </div>
+            <div class="form-group">
+                <label>Tỉnh/thành:</label>
+                @* <select class="form-control" name="Province">
+                    <option value="">--Chọn tỉnh/thành</option>
+                    @foreach (var item in SV20T1020183.BusinessLayers.CommonDataService.ListOfProvinces())
+                    {
+                        if(item.ProvinceName == Model.Province)
+                        {
+                            <option value="@item.ProvinceName" selected> @item.ProvinceName </option>
+                        }
+                        else
+                        {
+                            <option value="@item.ProvinceName"> @item.ProvinceName </option>
+                        }
+                    }
+                </select> *@
+                @Html.DropDownListFor(m => m.Province, SelectListHelper.Province(), new { @class = "form-control select2" })
+                @Html.ValidationMessage(nameof(Model.Province), new { @style = "color:#f00" })
+            </div>
+            <div class="form-group">
+                <label>Trạng thái:</label>
+                <select class="form-control" name="Islocked">
+                    <!-- Nên dùng checkbox hoặc radio-->
+                    @if (Model.IsLocked)
+                    {
+                        <option value="true" selected> Tài khoản bị khóa</option>
+                        <option value="false"> Tài khoản không bị khóa</option>
+                    }
+                    else
+                    {
+                        <option value="true" > Tài khoản bị khóa</option>
+                        <option value="false" selected> Tài khoản không bị khóa</option>
+                    }
+
+                    
+                </select>
+            </div>
+            <div class="form-group">
+                @Html.ValidationMessage("Error", new { @style = "color:#f00" })
+            </div>
+
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-floppy-o"> </i>
+                    Lưu dữ liệu
+                    </button>
+                    <a href="~/Customer" class="btn btn-default">
+                        Quay lại
+                    </a>
+            </div>
+            
+            
+        </form>
+
+
+    </div>
+
+</div>

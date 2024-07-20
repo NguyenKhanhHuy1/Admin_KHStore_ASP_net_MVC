@@ -1,0 +1,73 @@
+﻿@model PaginationSearchInput
+@{
+    ViewBag.Title = "Quản lý loại hàng";
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <form id="formSearch" action="~/Category/Search" method="get" data-container="#searchResult">
+            <div class="input-group">
+                <input type="hidden" name="@nameof(Model.PageSize)" value="@Model.PageSize" />
+
+                <input name="@nameof(Model.SearchValue)" type="text" class="form-control" placeholder="Nhập tên loại hàng cần tìm"
+                value="@Model.SearchValue">
+
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+
+                    <a href="~/Category/Create" class="btn btn-primary" style="margin-left:5px">
+                        <i class="fa fa-plus"> </i> Bổ sung
+                    </a>
+                </div>
+
+            </div>
+        </form>
+        <!-- Hiển thị kết quả tìm kiếm-->
+        <div id="searchResult">
+            
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function (e) {
+            $("#formSearch").submit(function (e) {
+                e.preventDefault();
+                doSearch(this, 1);
+                return;
+            });
+            doSearch("#formSearch", @Model.Page);
+        });
+
+        function doSearch(formSearch, page) {
+            var action = $(formSearch).prop("action");
+            var method = $(formSearch).prop("method");
+            var container = $(formSearch).data("container");
+
+            var searchData = $(formSearch).serializeArray();
+            searchData.push({ "name": "Page", "value": page });
+
+            $.ajax({
+                url: action,
+                type: method,
+                data: searchData,
+                async: false,
+                error: function () {
+                    alert("Your request is not valid!");
+                },
+                success: function (data) {
+                    $(container).html(data);
+                }
+            });
+        }
+    </script>
+}

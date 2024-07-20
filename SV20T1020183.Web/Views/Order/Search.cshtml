@@ -1,0 +1,86 @@
+﻿@model OrderSearchResult
+@{
+    Layout = null;
+}
+
+<!-- Kết quả tìm kiếm -->
+<p style="margin:10px 0 10px 0">
+    Có <strong>@Model.RowCount</strong> đơn hàng trong tổng số <strong>@Model.PageCount</strong> trang
+</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr class="bg-primary">
+                    <th>Khách hàng</th>
+                    <th>Ngày lập</th>
+                    <th>Nhân viên phụ trách</th>
+                    <th>Thời điểm duyệt</th>
+                    <th>Người giao hàng</th>
+                    <th>Ngày nhận giao hàng</th>
+                    <th>Thời điểm kết thúc</th>
+                    <th>Trạng thái</th>
+                    <th style="width:40px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Data)
+                {
+                    <tr>
+                        <td>@item.CustomerContactName</td>
+                        <td>@item.OrderTime</td>
+                        <td>@item.EmployeeName</td>
+                        <td>@item.AcceptTime</td>
+                        <td>@item.ShipperName</td>
+                        <td>@item.ShippedTime</td>
+                        <td>@item.FinishedTime</td>
+                        <td>
+                        @switch (item.Status)
+                        {
+                            case 1:
+                                <p>Đơn hàng mới</p>
+                                break;
+                            case 2:
+                                <p>Đã duyệt</p>
+                                break;
+                            case 3:
+                                <p>Đang được giao</p>
+                                break;
+                            case 4:
+                                <p>Đã hoàn tất</p>
+                                break;
+                            case -1:
+                                <p>Bị hủy</p>
+                                break;
+                            default:
+                                <p>Bị từ chối</p>
+                                break;
+                        }
+                        </td>
+                        <td>
+                            <a href="~/Order/Details/@item.OrderID" class="btn btn-info btn-xs">
+                                <i class="glyphicon glyphicon-th-list"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+<div class="text-center">
+    <ul class="pagination">
+        @for (int p = 1; p <= Model.PageCount; p++)
+        {
+            if (p == Model.Page)
+            {
+                <li class="active"><a href="#">@p</a></li>
+            }
+            else
+            {
+                <li><a href="javascript:;" onclick="doSearch('#formSearch', @p)">@p</a></li>
+            }
+        }
+    </ul>
+</div>
